@@ -1,0 +1,32 @@
+{% extends "base2.html" %}
+{% block content %}
+
+<h2>Quiz Results</h2>
+
+<div class="result-summary">
+    You scored {{ score }} / {{ total }}
+</div>
+
+<div class="result-section">
+
+    {% for res in results %}
+    <div class="question-block">
+        <h4>{{ loop.index }}. {{ res.question }}</h4>
+
+        {% if res.is_correct %}
+            <div class="result-correct">
+                ✔ Correct — {{ res.correct }}
+            </div>
+        {% else %}
+            <div class="result-wrong">
+                ✘ Your answer: {{ res.selected }}  
+                <br>
+                ✔ Correct answer: {{ res.correct }}
+            </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

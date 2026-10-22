@@ -1,0 +1,70 @@
+{% extends "base2.html" %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <div class="card shadow p-4">
+        <h2 class="mb-4 text-center">🎥 Video Analysis Result</h2>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <p><strong>Visual Confidence:</strong> 
+                    <span class="badge bg-primary">{{ vscore }}</span>
+                </p>
+
+                <p><strong>Candidate Emotion:</strong> 
+                    <span class="badge bg-info text-dark">{{ emotion }}</span>
+                </p>
+
+                <p><strong>Speech Confidence:</strong> 
+                    <span class="badge bg-warning text-dark">{{ confidence }}</span>
+                </p>
+            </div>
+
+            <div class="col-md-6">
+                <p><strong>Text Error:</strong> {{ errmsg }}</p>
+                <p><strong>Message Error:</strong> {{ eerrmsg }}</p>
+                <p><strong>Suggestion Error:</strong> {{ errsug }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <p class="mt-3"><strong>Grammatical Score:</strong> 
+            <span class="badge bg-success">{{ gscore }}</span>
+        </p>
+
+        <p><strong>Total Error Score:</strong> 
+            <span class="badge bg-danger">{{ total_errors }}</span>
+        </p>
+
+        <p><strong>Total Interview Score:</strong></p>
+        <div class="progress mb-3" style="height: 25px;">
+            <div class="progress-bar 
+                {% if ts >= 80 %} bg-success 
+                {% elif ts >= 50 %} bg-warning 
+                {% else %} bg-danger 
+                {% endif %}" 
+                role="progressbar" style="width: {{ ts }}%;">
+                {{ ts }}%
+            </div>
+        </div>
+
+        {% if ts > 80 %}
+        <div class="alert alert-success text-center mt-4">
+            🎉 <strong>Congratulations!</strong> You have been selected for the next round.<br>
+            <a href="/quiz/{{ sub }}" class="btn btn-success mt-3">Proceed to Next Round</a>
+        </div>
+
+        {% else %}
+        <div class="alert alert-danger text-center mt-4">
+            ❌ <strong>Not Selected.</strong> Don’t worry, try again!<br>
+            <a href="/student/recording" class="btn btn-danger mt-3">Take Another Interview</a>
+        </div>
+        {% endif %}
+
+    </div>
+
+</div>
+
+{% endblock %}

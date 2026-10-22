@@ -1,0 +1,3 @@
+{'message': 'This sentence does not start with an uppercase letter.', 'suggestions': ['Good'], 'error': 'good morning my name is Pallavi AC currently...'}
+{'message': 'Possible spelling mistake found.', 'suggestions': ['Pahlavi'], 'error': 'good morning my name is Pallavi AC currently studying in electronics an...'}
+{'message': 'Possible spelling mistake found.', 'suggestions': ['CNN', 'Jon', 'inn', 'Jun', 'Jen', 'Jan', 'jinn', 'Jenn', 'Ann', 'ANN', 'BNN', 'JDN', 'JNA', 'JNE', 'JNI', 'JNT', 'JPN', 'Jin', 'NNN', 'PNN', 'RNN', 'TNN', 'ann'], 'error': '...munication engineering from the college jnn college of engineering and electronics ...'}

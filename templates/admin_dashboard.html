@@ -1,0 +1,61 @@
+{% extends 'base1.html' %}
+{% block content %}
+
+<h2 style="margin-bottom: 20px;">Admin Dashboard</h2>
+
+<div class="card">
+    <form method="post" action="/admin/add" enctype="multipart/form-data">
+
+        <label>Title:</label>
+        <input type="text" name="title" required>
+
+        <label>Subject:</label>
+        <input type="text" name="subject" required>
+
+        <label>Type:</label>
+        <select name="ctype" required>
+            <option value="note">Note</option>
+            <option value="image">Image</option>
+            <option value="video">Video</option>
+        </select>
+
+        <label>File:</label>
+        <input type="file" name="file">
+
+        <button type="submit">Upload</button>
+    </form>
+</div>
+
+<hr>
+
+<h2 style="margin-top: 20px;">Manage Content</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Type</th>
+            <th>Filename</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for item in content %}
+        <tr>
+            <td>{{ item.title }}</td>
+            <td>{{ item.subject }}</td>
+            <td>{{ item.type }}</td>
+            <td>{{ item.filename }}</td>
+            <td>
+                <a href="/admin/delete/{{ item.id }}">
+                    <button class="btn-action btn-delete" type="button">Delete</button>
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

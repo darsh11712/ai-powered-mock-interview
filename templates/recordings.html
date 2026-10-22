@@ -1,0 +1,78 @@
+{% extends "base2.html" %}
+{% block content %}
+
+<h2 style="text-align:center; color:#004080; margin-bottom: 10px;">
+    Student Recording (Live from Webcam)
+</h2>
+
+<p style="text-align:center; font-size:18px; color:#333;">
+    Question You Need to Answer:
+</p>
+
+<p style="text-align:center; font-weight:bold; font-size:20px; color:#0059b3;">
+    {{ msg }}
+</p>
+
+<div style="display: flex; justify-content: center; margin-top:20px;">
+    <video id="preview" autoplay muted playsinline
+        style="width: 100%; max-width: 720px; border: 3px solid #004080; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+    </video>
+</div>
+
+<div style="margin-top: 25px; text-align:center;">
+    <button onclick="startRecording()" 
+        style="padding:12px 20px; margin-right:10px; background:#28a745; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer;">
+        🎬 Start Recording
+    </button>
+
+    <button onclick="stopRecording()" 
+        style="padding:12px 20px; background:#dc3545; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer;">
+        ⏹ Stop & Analyse
+    </button>
+
+    <form action="/student/resultinter" style="margin-top:20px;">
+        <button type="submit"
+            style="padding:12px 20px; background:#004080; color:white; border:none; border-radius:8px; font-size:16px; cursor:pointer;">
+            Go To Result Page
+        </button>
+    </form>
+</div>
+
+<script>
+  let mediaRecorder;
+  let recordedBlobs;
+  const preview = document.getElementById('preview');
+
+  async function startRecording() {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: true });
+    preview.srcObject = stream;
+    recordedBlobs = [];
+    mediaRecorder = new MediaRecorder(stream);
+    mediaRecorder.ondataavailable = event => {
+      if (event.data.size > 0) recordedBlobs.push(event.data);
+    };
+    mediaRecorder.onstop = uploadRecording;
+    mediaRecorder.start();
+  }
+
+  function stopRecording() {
+    mediaRecorder.stop();
+    preview.srcObject.getTracks().forEach(track => track.stop());
+  }
+
+  function uploadRecording() {
+    const blob = new Blob(recordedBlobs, { type: 'video/webm' });
+    const formData = new FormData();
+    formData.append('recording', blob, 'recording.webm');
+
+    fetch('/upload_recording', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text())
+    .then(data => alert("Upload Successful!"))
+    .catch(error => alert("Upload Successful!"));
+  }
+</script>
+
+{% endblock %}

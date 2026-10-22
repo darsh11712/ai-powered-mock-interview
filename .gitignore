@@ -1,0 +1,39 @@
+﻿# Python cache files
+_pycache_/
+*.py[cod]
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Node.js dependencies
+node_modules/
+
+# Build and cache files
+.cache/
+.pytest_cache/
+build/
+dist/
+
+# Logs
+*.log
+
+# Local databases - exclude until reviewed
+portal.db
+portalold.db
+
+# Large recordings
+static/recordings/videos/
+*.mp4
+
+# Nested Git repository metadata
+realtime-mockinterview/.git/
+
+# Nested duplicate project
+/realtime-mockinterview/

@@ -1,0 +1,40 @@
+{% extends "base2.html" %}
+{% block content %}
+
+<h2>{{ subject }} Quiz</h2>
+
+<div class="card">
+<form method="POST">
+
+  {% for q in questions %}
+  <div class="question-block">
+    <h4>{{ loop.index }}. {{ q[2] }}</h4>
+
+    <div class="option">
+      <input type="radio" name="q{{ q[0] }}" value="{{ q[3] }}" required>
+      {{ q[3] }}
+    </div>
+
+    <div class="option">
+      <input type="radio" name="q{{ q[0] }}" value="{{ q[4] }}">
+      {{ q[4] }}
+    </div>
+
+    <div class="option">
+      <input type="radio" name="q{{ q[0] }}" value="{{ q[5] }}">
+      {{ q[5] }}
+    </div>
+
+    <div class="option">
+      <input type="radio" name="q{{ q[0] }}" value="{{ q[6] }}">
+      {{ q[6] }}
+    </div>
+  </div>
+  {% endfor %}
+
+  <button type="submit">Submit Quiz</button>
+
+</form>
+</div>
+
+{% endblock %}
